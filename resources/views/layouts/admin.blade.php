@@ -18,12 +18,16 @@
         <link href="{{ asset('/assets/css/icons.css') }}" rel="stylesheet">
         <link href="{{ asset('/assets/css/menu.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('/assets/css/style.css') }}" rel="stylesheet">
+        <link href="{{ asset('/assets/css/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
+        <script src="{{ asset('/assets/js/jquery3.min.js') }}"></script>
+        <link href="{{ asset('/assets/plugins/dropify/css/dropify.min.css') }}" rel="stylesheet">
+
+
     </head>
 <body>
 
     @yield('content')
   <!-- jQuery -->
-  <script src="{{ asset('/assets/js/jquery3.min.js') }}"></script>
   <script src="{{ asset('/assets/js/popper.min.js') }}"></script>
   <script src="{{ asset('/assets/js/bootstrap.min.js') }}"></script>
   <script src="{{ asset('/assets/js/jquery-migrate.js') }}"></script>
@@ -38,31 +42,11 @@
   <script src="{{ asset('/assets/plugins/tabledit/jquery.tabledit.js') }}"></script>       
   <script src="{{ asset('/assets/plugins/tiny-editable/mindmup-editabletable.js') }}"></script>
   <script src="{{ asset('/assets/plugins/tiny-editable/numeric-input-example.js') }}"></script>
-
-  <script type="text/javascript">
-
-    $(document).ready(function(){  
-        $('#my-table').Tabledit({
-        url:'/dashboard/menus/update/',
-        columns:{
-        identifier:[0, "id"],
-        editable:[[1, 'name'], [2, 'slug']]
-        },
-        restoreButton:false,
-        onSuccess:function(data, textStatus, jqXHR)
-        {
-        if(data.action == 'delete')
-        {
-            console.log( 'washla');
-            $('#'+data.id).remove();
-        }
-        }
-        });
-    
-    }); 
+ 
+  <script src="{{ asset('/assets/plugins/dropify/js/dropify.min.js') }}"></script>        
 
 
-</script>
+
 
 </body>
 </html>

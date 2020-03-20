@@ -9,7 +9,7 @@
 
             <div class="user-box">
                 <div class="d-flex justify-content-center">
-                    <img src="/assets/images/users/avatar-1.jpg" alt="" class="img-fluid rounded-circle"> 
+                    <img src="{{ asset('/assets/images/dima.jpg') }}" alt="" class="img-fluid rounded-circle"> 
                 </div>
                 <div class="text-center text-white mt-2">
                     <h6>Dima</h6>
@@ -59,7 +59,7 @@
                       
                         <li>
                             <a href="javascript:;" data-toggle="dropdown">
-                                <img src="/assets/images/users/avatar-1.jpg" alt="dima">
+                                <img src="{{ asset('/assets/images/dima.jpg') }}" alt="dima">
                             </a>
                             <div class="dropdown-menu dropdown-menu-right profile-menu">
                                 <a class="dropdown-item" href="/" target="_blank"><i class="mdi mdi-account-circle m-r-5 text-muted"></i> Visit to site</a>

@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Menu;
-use input;
-class MenuController extends Controller
+use App\Helpers;
+use App\About;
+class AboutController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,10 +14,12 @@ class MenuController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
-        $menus = DB::table('menus')->get();
-
-        return view('admin.dashboard.menu.index',['menus' => $menus]);
+    {
+        $about = DB::table('abouts')->orderByDesc('created_at','desc')->get();
+        
+        return view('admin.dashboard.page.about',[
+            'abouts' => $about
+        ]);
     }
 
     /**
@@ -25,9 +27,9 @@ class MenuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
-        
+        //
     }
 
     /**
@@ -38,13 +40,12 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        $menu = new Menu;
+       $about = new About;
 
-        $menu->name = $request->input('name');
-        $menu->slug = str_slug( $request->input('slug') );
-        
-        $menu->icon = $request->input('icon');
-        $menu->save();
+       $about->key_name = str_slug( $request->input('key_name') );
+       $about->value    = $request->input('value');
+
+       $about->save();
     
         return back();
     }
@@ -78,24 +79,25 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $this->validate($request,[
-            'name' => 'required|string',
-            'slug' => 'required|string',
-            'icon' => 'required|string',
-            'id' =>   'required|integer'
+            'key_name' =>   'string',
+            'value'      =>   'string',
+            'id'       =>   'integer'
         ]);
 
-        $menu = Menu::findorFail( $request->input('id') )->update(['name'=>
-            $request->input('name'),'slug' => str_slug( $request->input('slug') ),'icon' => $request->input('icon')
-        ]);
+        $about = About::findorFail( $request->input('id') )->update(
+            [ 
+                'key_name' => str_slug ($request->input('key_name')),'value' => $request->input('value')
+            ]
+        );
 
-        if($menu) {
-            return "Menu updated";
+        if( $about ) {
+            return redirect()->back()->with('message', 'Key Updated');
         }
 
-        return dd( $menu );
+       
     }
 
     /**
@@ -106,10 +108,8 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
-        $menu = Menu::findorFail( $id )->delete();
+        $about = About::findorFail( $id )->delete();
 
-        if( $menu ) {
-            return "Menu Deleted";
-        }
+        return back();
     }
 }
