@@ -21,6 +21,7 @@
         <link href="{{ asset('/assets/css/boxicons/css/boxicons.min.css') }}" rel="stylesheet">
         <script src="{{ asset('/assets/js/jquery3.min.js') }}"></script>
         <link href="{{ asset('/assets/plugins/dropify/css/dropify.min.css') }}" rel="stylesheet">
+        <script src="{{ asset('/assets/plugins/tinymce/tinymce.min.js') }}" type="text/javascript"></script>
 
 
     </head>

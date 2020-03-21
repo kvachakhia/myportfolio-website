@@ -21,6 +21,15 @@ class HomePageController extends Controller
         ]);
     }
 
+    public function home()
+    {   
+        $hero = DB::table('heroes')->get();
+
+        return view('pages.homepage',[
+            'hero' => $hero
+        ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -48,9 +57,9 @@ class HomePageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        view('homepage');
     }
 
     /**
@@ -130,12 +139,12 @@ class HomePageController extends Controller
       
         $menu = Hero::findorFail(
 
-            $request->input('id') )->update(
-                [
-                    'name'          =>$request->input('name'),
-                    'profession'    => $request->input('profession'),
-                    'image'         => '/images/' . $imageName
-                ]);
+        $request->input('id') )->update(
+            [
+                'name'          =>$request->input('name'),
+                'profession'    => $request->input('profession'),
+                'image'         => '/images/' . $imageName
+            ]);
 
 
         return back()

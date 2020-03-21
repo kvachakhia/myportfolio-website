@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Session;
 use App\Helpers;
 use App\About;
+
 class AboutController extends Controller
 {
     /**
@@ -15,6 +19,7 @@ class AboutController extends Controller
      */
     public function index()
     {
+    
         $about = DB::table('abouts')->orderByDesc('created_at','desc')->get();
         
         return view('admin.dashboard.page.about',[
@@ -40,13 +45,24 @@ class AboutController extends Controller
      */
     public function store(Request $request)
     {
-       $about = new About;
+        request()->validate([
+            'value' => 'max:2048',
+        ]);
 
-       $about->key_name = str_slug( $request->input('key_name') );
-       $about->value    = $request->input('value');
+        if (request()->hasFile('value')) {
+            $imageName = time().'.'.request()->value->getClientOriginalExtension();
+            request()->value->move(public_path('images'), $imageName) ;
+        }
 
-       $about->save();
-    
+        $about = new About;
+        $about->key_name = str_slug($request->input('key_name'));
+        $about->value = $request->input('value');
+        if (request()->hasFile('value')) {
+            $about->value = '/images/' . $imageName;
+        }
+           
+        $about->save();
+
         return back();
     }
 
@@ -56,9 +72,15 @@ class AboutController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $hero = DB::table('heroes')->get();
+        $menus = DB::table('menus')->get();
+
+        return view('pages.about',[
+            'hero' => $hero,
+            'menus' => $menus,
+        ]);
     }
 
     /**

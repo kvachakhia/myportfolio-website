@@ -2713,3 +2713,8 @@ ul.p-social-link li a {
         display: block;
     }
 }
+
+.addnewheader {
+    display: flex;
+    justify-content: space-between;
+}

@@ -7,4 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class About extends Model
 {
     protected $fillable = ['key_name', 'value'];
+
+    
 }

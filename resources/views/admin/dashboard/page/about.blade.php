@@ -12,7 +12,7 @@
                     <img src="{{ asset('/assets/images/dima.jpg') }}" alt="" class="img-fluid rounded-circle"> 
                 </div>
                 <div class="text-center text-white mt-2">
-                    <h6>Dima</h6>
+                    <h6>Dimitri</h6>
                     <p class="text-muted m-0">Admin</p>
                 </div>
             </div>   
@@ -117,11 +117,25 @@
                                 </div>
 
                                 <div class="form-group row">
-                                    <label class="col-sm-2 control-label" for="value">Value</label>
+                                    <label class="col-sm-2 control-label" for="selectfieldtype">Field Type</label>
                                     <div class="col-sm-10">
-                                        <input type="text" name="value" class="form-control" placeholder="value">
+                                        <select class="form-control" id="selectfieldtype">
+                                            <option value="text">Text</option>
+                                            <option value="texarea">Textarea</option>
+                                            <option value="imageupload">Image</option>
+                                        </select>
                                     </div>
                                 </div>
+                                    
+                                <div class="form-group row" id="texarea">
+                                    <label class="col-sm-2 control-label" for="texareafield">Textarea Value</label>
+                                    <div class="col-sm-10">
+                                        <textarea class="form-control" name="value" id="" cols="100" rows="10"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="clas"></div>
+                                <div class="imageupload"></div>
 
                                 <div class="">
                                     <button type="submit" class="btn btn-success">Save</button>
@@ -133,6 +147,42 @@
                     </div>
                 </div>
             </div>
+
+
+            <script>
+
+                $("#selectfieldtype").change(function() {
+                    if ($(this).val() == "texarea") {
+                        $('#text').remove();
+                        $('#imageupload').remove();
+                        $('#texarea').show();
+                        $('#texareafield').attr('required', '');
+                        $('#texareafield').attr('data-error', 'This field is required.');
+                    }else if( $(this).val() == "text" ) {
+                        $(".clas").append("<div class='form-group row' id='text'><label class='col-sm-2 control-label' for='textfield'>Text Value</label><div class='col-sm-10'><input type='text' name='value' class='form-control' placeholder='value'></div></div>");
+                        $('#texarea').hide();
+                        $('#imageupload').remove();
+                        $('#text').show();
+                        $('#textfield').attr('required', '');
+                        $('#textfield').attr('data-error', 'This field is required.');
+                    }else if( $(this).val() == "imageupload" ) {
+                        $(".imageupload").append("<div class='form-group row' id='imageupload'><label class='col-sm-2 control-label' for='imagefield'>Image Value</label><div class='col-sm-10'><input type='file' name='value' class='form-control'></div></div>");
+                        $('#texarea').hide();
+                        $('#text').hide();
+                        $('#textfield').attr('required', '');
+                        $('#textfield').attr('data-error', 'This field is required.');
+                    }
+                    else {
+                        $('#text').hide();
+                        $('#texarea').hide();
+                        $('#texareafield').removeAttr('required');
+                        $('#texareafield').removeAttr('data-error');
+                    }
+                    });
+                    $("#selectfieldtype").trigger("change");
+
+
+            </script>
 
             <div class="col-12">
                 <div class="card m-b-30">
@@ -153,17 +203,17 @@
                                                 <form action="{{ route('aboutKeyDelete',$about->id) }}" method="POST" enctype="multipart/form-data">
                                                     @csrf
                                                     <td>{{ $about->key_name }}</td>
-                                                    <td>{{ $about->value }}</td>
+                                                    <td>{{ substr( $about->value,0,50) }}</td>
                                                     
                                                     <td>
-                                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#updatekey">Update</button>
+                                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#updatekey{{$about->id}}">Update</button>
                                                         <button class="btn btn-danger">Delete</button>
                                                     </td>
                                                 </form>
                                             </tr>
 
 
-                                            <div class="modal fade" id="updatekey" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal fade" id="updatekey{{$about->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
                                                   <div class="modal-content">
                                                     <div class="modal-header">

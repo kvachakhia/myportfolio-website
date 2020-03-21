@@ -55,9 +55,10 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $menus = DB::table('menus')->get();
+        return view('partials.header',['menus' => $menus]);
     }
 
     /**

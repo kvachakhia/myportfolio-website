@@ -294,7 +294,6 @@
                                         <div class="col-sm-10">
                                             <input type="file" name="image" class="form-control">
                                         </div>
-
                                     </div>
 
                                     <div class="">
