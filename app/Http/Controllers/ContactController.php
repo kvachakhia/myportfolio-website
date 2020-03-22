@@ -63,9 +63,15 @@ class ContactController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        $contacts = DB::table('contacts')->orderByDesc('created_at','desc')->get();
+        $menus = DB::table('menus')->get();
+        
+        return view('pages.contact',[
+            'menus' => $menus,
+            'contacts' => $contacts,
+        ]);
     }
 
     /**

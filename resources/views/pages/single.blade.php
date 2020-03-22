@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title',$portfolio->title.' -')
+@section('description', \App\Helpers::contacts('description'))
+@section('imgae', URL::to('/'). $portfolio->image )
+
 @section('content')
 <p><span class="typed" data-typed-items=" "></span></p>
 

@@ -3,12 +3,14 @@
     <div class="d-flex flex-column">
 
     <div class="profile">
-        <img src="{{ App\Helpers::about('avatar') }}" alt="{{ App\Helpers::about('name') }}" class="img-fluid rounded-circle">
-        <h1 class="text-light"><a href="/">{{ App\Helpers::about('name') }}</a></h1>
+        <img src="{{ App\Helpers::about('avatar') }}" alt="{{ \App\Helpers::contacts('name') }}" class="img-fluid rounded-circle">
+        <h1 class="text-light"><a href="/">{{ \App\Helpers::contacts('name') }}</a></h1>
         <div class="social-links mt-3 text-center">
-          <a href="{{ App\Helpers::contacts('facebook') }}" class="facebook"><i class="bx bxl-facebook"></i></a>
-          <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-          <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+          <a href="{{ \App\Helpers::contacts('facebook') }}"  target="_blank" class="facebook"><i class="bx bxl-facebook"></i></a>
+          <a href="{{ \App\Helpers::contacts('instagram') }}" target="_blank" class="instagram"><i class="bx bxl-instagram"></i></a>
+          <a href="{{ \App\Helpers::contacts('linkedin') }}"  target="_blank" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+          <a href="{{ \App\Helpers::contacts('github') }}"    target="_blank" class="github"><i class="bx bxl-github"></i></a>
+          <a href="{{ \App\Helpers::resume('cv') }}"    target="_blank" class="github"><i class='bx bxs-file-pdf'></i></i></a>
         </div>
     </div>
 

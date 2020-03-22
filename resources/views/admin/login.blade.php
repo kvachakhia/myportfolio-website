@@ -39,7 +39,7 @@
 
                                         <div class="form-group">
                                             <div class="col-sm-12 mt-4">
-                                                <button class="btn btn-primary btn-block" type="submit">Log In</button>
+                                                <button class="btn btn-dark btn-block" type="submit">Log In</button>
                                             </div>
                                         </div>
 

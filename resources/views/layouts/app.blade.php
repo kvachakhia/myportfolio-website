@@ -7,7 +7,11 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('title') Dimitri Kvachakhia | Personal Website</title>
+    <meta property="og:title" content="@yield('title') Dimitri Kvachakhia | Personal Website" />
+    <meta property="og:type" content="personal" />
+    <meta property="og:description" content="@yield('description')">
+    <meta property="og:image" content="@yield('imgae')" />
 
     @include('partials.head')
 </head>

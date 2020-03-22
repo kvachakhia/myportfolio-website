@@ -111,7 +111,6 @@
                                             <th scope="col">Image</th>
                                             <th scope="col">Title</th>
                                             <th scope="col">Slug</th>
-                                            <th scope="col">Description</th>
                                             <th scope="col">Action</th>
                                         </tr>
                                     </thead>
@@ -125,7 +124,6 @@
                                                     <td><img src="{{ $portfolio->image }}" width="100px" style="border-radius: 1px;border: 1px solid #040b14;"></td>
                                                     <td>{{ $portfolio->title }}</td>
                                                     <td>{{ $portfolio->slug }}</td>
-                                                    <td>{{ strip_tags( substr( $portfolio->description,0,50) ) }}</td>
                                                     <td>
                                                         <a href="{{ route('edtiPortfolio',$portfolio->id) }}"><button type="button" class="btn btn-warning">Update</button></a>
                                                         <button class="btn btn-danger">Delete</button>

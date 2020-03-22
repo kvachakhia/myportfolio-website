@@ -188,6 +188,8 @@
                                             </tr>
                                     </thead>
                                     <tbody>
+ 
+
                                         @foreach ($contacts as $contact)
                                             <tr>
                                                 <form action="{{ route('contactcontactKeyDelete',$contact->id) }}" method="POST" enctype="multipart/form-data">

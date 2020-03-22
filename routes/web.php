@@ -101,9 +101,10 @@ Route::get('/services', 'ServiceController@show');
 
 //portfolio
 Route::get('/projects', 'PortfolioController@projects');
-
 Route::get('/portfolio/{slug}/', 'PortfolioController@show');
 
+//contact
+Route::get('/contact', 'ContactController@show');
 
 
 
