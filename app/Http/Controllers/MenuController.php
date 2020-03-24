@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -14,10 +13,10 @@ class MenuController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         $menus = DB::table('menus')->get();
 
-        return view('admin.dashboard.menu.index',['menus' => $menus]);
+        return view('admin.dashboard.menu.index', ['menus' => $menus]);
     }
 
     /**
@@ -27,7 +26,7 @@ class MenuController extends Controller
      */
     public function create(Request $request)
     {
-        
+
     }
 
     /**
@@ -41,11 +40,11 @@ class MenuController extends Controller
         $menu = new Menu;
 
         $menu->name = $request->input('name');
-        $menu->slug = str_slug( $request->input('slug') );
-        
+        $menu->slug = str_slug($request->input('slug'));
+
         $menu->icon = $request->input('icon');
         $menu->save();
-    
+
         return back();
     }
 
@@ -58,7 +57,7 @@ class MenuController extends Controller
     public function show()
     {
         $menus = DB::table('menus')->get();
-        return view('partials.header',['menus' => $menus]);
+        return view('partials.header', ['menus' => $menus]);
     }
 
     /**
@@ -70,6 +69,7 @@ class MenuController extends Controller
     public function edit($id)
     {
         //
+        
     }
 
     /**
@@ -81,22 +81,17 @@ class MenuController extends Controller
      */
     public function update(Request $request)
     {
-        $this->validate($request,[
-            'name' => 'required|string',
-            'slug' => 'required|string',
-            'icon' => 'required|string',
-            'id' =>   'required|integer'
-        ]);
+        $this->validate($request, ['name' => 'required|string', 'slug' => 'required|string', 'icon' => 'required|string', 'id' => 'required|integer']);
 
-        $menu = Menu::findorFail( $request->input('id') )->update(['name'=>
-            $request->input('name'),'slug' => str_slug( $request->input('slug') ),'icon' => $request->input('icon')
-        ]);
+        $menu = Menu::findorFail($request->input('id'))
+            ->update(['name' => $request->input('name') , 'slug' => str_slug($request->input('slug')) , 'icon' => $request->input('icon') ]);
 
-        if($menu) {
+        if ($menu)
+        {
             return "Menu updated";
         }
 
-        return dd( $menu );
+        return dd($menu);
     }
 
     /**
@@ -107,10 +102,12 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
-        $menu = Menu::findorFail( $id )->delete();
+        $menu = Menu::findorFail($id)->delete();
 
-        if( $menu ) {
+        if ($menu)
+        {
             return "Menu Deleted";
         }
     }
 }
+

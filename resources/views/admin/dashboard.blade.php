@@ -80,6 +80,12 @@
             @php
                 $portfolios = DB::table('portfolios')->orderByDesc('created_at','desc')->get();
                 $services = DB::table('services')->orderByDesc('created_at','desc')->get();
+                $blogs = DB::table('blogs')->orderByDesc('created_at','desc')->get();
+
+                $sumPortfolios = count($portfolios) ;
+                $sumServices = count($services) * 10;
+                $sumBlog = count($blogs) * 3;
+
             @endphp
             <div class="row d-flex" style="justify-content: center;">
                 <div class="col-lg-4 col-sm-3 progress-icon m-b-30">
@@ -94,7 +100,7 @@
                             </div>
                         </div>
                         <div class="progress mx-auto mt-2" style="width: 90%; height: 8px">
-                            <div class="progress-bar bg-info" role="progressbar" style="width: {{ count( $portfolios ) }}%" aria-valuenow="{{ count( $portfolios ) }}" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar bg-info" role="progressbar" style="width: {{ $sumPortfolios }}%" aria-valuenow="{{ $sumPortfolios }}" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                    </div> 
                 </div>
@@ -111,7 +117,24 @@
                             </div>
                         </div>
                         <div class="progress mx-auto mt-2" style="width: 90%; height: 8px">
-                            <div class="progress-bar bg-dark" role="progressbar" style="width: 90%" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                            <div class="progress-bar bg-dark" role="progressbar" style="width: {{ $sumServices }}%" aria-valuenow="{{ $sumServices }}" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                   </div> 
+                </div>
+
+                <div class="col-lg-4 col-sm-3 progress-icon m-b-30">
+                    <div class="widget-box bg-primary">
+                        <div class="row d-flex align-items-center ml-1">
+                            <div class="col-6 text-white">
+                                <h2 class="m-0 counter">{{ count( $blogs ) }}</h2>
+                                <p>Total Blogs</p> 
+                            </div>
+                            <div class="col-6">
+                                <div class="text-right"><i class="ti ti-server"></i></div>
+                            </div>
+                        </div>
+                        <div class="progress mx-auto mt-2" style="width: 90%; height: 8px">
+                            <div class="progress-bar bg-warning" role="progressbar" style="width: {{ $sumBlog }}%" aria-valuenow="{{ $sumBlog }}" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
                    </div> 
                 </div>

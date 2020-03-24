@@ -8,6 +8,7 @@
         <li class="{{ (request()->is('dashboard/page/about')) ? 'active' :'' }}"><a href="/dashboard/page/about">About</a></li>
         <li class="{{ (request()->is('dashboard/page/resume')) ? 'active' :'' }}"><a href="/dashboard/page/resume">Resume</a></li>
         <li class="{{ (request()->is('dashboard/page/portfolio')) ? 'active' :'' }}"><a href="/dashboard/page/portfolio">Portfolio</a></li>
+        <li class="{{ (request()->is('dashboard/page/blogs')) ? 'active' :'' }}"><a href="/dashboard/page/blogs">Blogs</a></li>
         <li class="{{ (request()->is('dashboard/page/services')) ? 'active' :'' }}"><a href="/dashboard/page/services">Services</a></li>
         <li class="{{ (request()->is('dashboard/page/contact')) ? 'active' :'' }}"><a href="/dashboard/page/contact">Contact</a></li>
     </ul>

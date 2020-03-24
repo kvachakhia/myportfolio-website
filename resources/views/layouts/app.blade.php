@@ -12,7 +12,18 @@
     <meta property="og:type" content="personal" />
     <meta property="og:description" content="@yield('description')">
     <meta property="og:image" content="@yield('imgae')" />
-
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/ka_GE/sdk.js#xfbml=1&version=v6.0"></script>
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-92192675-3"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+    
+      gtag('config', 'UA-92192675-3');
+    </script>
     @include('partials.head')
 </head>
 <body>

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -16,11 +15,10 @@ class ContactController extends Controller
      */
     public function index()
     {
-        $contacts = DB::table('contacts')->orderByDesc('created_at','desc')->get();
-        
-        return view('admin.dashboard.page.contact',[
-            'contacts' => $contacts
-        ]);
+        $contacts = DB::table('contacts')->orderByDesc('created_at', 'desc')
+            ->get();
+
+        return view('admin.dashboard.page.contact', ['contacts' => $contacts]);
     }
 
     /**
@@ -30,7 +28,7 @@ class ContactController extends Controller
      */
     public function create()
     {
-        
+
     }
 
     /**
@@ -41,17 +39,17 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate([
-            'value' => 'max:2048',
-        ]);
+        request()->validate(['value' => 'max:2048', ]);
 
         $contact = new Contact;
         $contact->key_name = str_slug($request->input('key_name'));
         $contact->value = $request->input('value');
-        if (request()->hasFile('value')) {
+        if (request()
+            ->hasFile('value'))
+        {
             $contact->value = '/images/' . $imageName;
         }
-           
+
         $contact->save();
 
         return back();
@@ -65,13 +63,11 @@ class ContactController extends Controller
      */
     public function show()
     {
-        $contacts = DB::table('contacts')->orderByDesc('created_at','desc')->get();
+        $contacts = DB::table('contacts')->orderByDesc('created_at', 'desc')
+            ->get();
         $menus = DB::table('menus')->get();
-        
-        return view('pages.contact',[
-            'menus' => $menus,
-            'contacts' => $contacts,
-        ]);
+
+        return view('pages.contact', ['menus' => $menus, 'contacts' => $contacts, ]);
     }
 
     /**
@@ -83,6 +79,7 @@ class ContactController extends Controller
     public function edit($id)
     {
         //
+        
     }
 
     /**
@@ -94,20 +91,15 @@ class ContactController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request,[
-            'key_name' =>   'string',
-            'value'      =>   'string',
-            'id'       =>   'integer'
-        ]);
+        $this->validate($request, ['key_name' => 'string', 'value' => 'string', 'id' => 'integer']);
 
-        $contact = Contact::findorFail( $request->input('id') )->update(
-            [ 
-                'key_name' => str_slug ($request->input('key_name')),'value' => $request->input('value')
-            ]
-        );
+        $contact = Contact::findorFail($request->input('id'))
+            ->update(['key_name' => str_slug($request->input('key_name')) , 'value' => $request->input('value') ]);
 
-        if( $contact ) {
-            return redirect()->back()->with('message', 'Key Updated');
+        if ($contact)
+        {
+            return redirect()->back()
+                ->with('message', 'Key Updated');
         }
     }
 
@@ -119,8 +111,10 @@ class ContactController extends Controller
      */
     public function destroy($id)
     {
-        $contact  = Contact::findorFail( $id )->delete();
+        $contact = Contact::findorFail($id)->delete();
 
-        return redirect()->back()->with('message', 'Key Deleted');
+        return redirect()
+            ->back()
+            ->with('message', 'Key Deleted');
     }
 }

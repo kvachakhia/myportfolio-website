@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -13,21 +12,17 @@ class HomePageController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         $hero = DB::table('heroes')->get();
 
-        return view('admin.dashboard.page.homepage',[
-            'hero' => $hero
-        ]);
+        return view('admin.dashboard.page.homepage', ['hero' => $hero]);
     }
 
     public function home()
-    {   
+    {
         $hero = DB::table('heroes')->get();
 
-        return view('pages.homepage',[
-            'hero' => $hero
-        ]);
+        return view('pages.homepage', ['hero' => $hero]);
     }
 
     /**
@@ -38,6 +33,7 @@ class HomePageController extends Controller
     public function create()
     {
         //
+        
     }
 
     /**
@@ -49,6 +45,7 @@ class HomePageController extends Controller
     public function store(Request $request)
     {
         //
+        
     }
 
     /**
@@ -71,6 +68,7 @@ class HomePageController extends Controller
     public function edit($id)
     {
         //
+        
     }
 
     /**
@@ -83,6 +81,7 @@ class HomePageController extends Controller
     public function update(Request $request, $id)
     {
         //
+        
     }
 
     /**
@@ -94,19 +93,24 @@ class HomePageController extends Controller
     public function destroy($id)
     {
         //
+        
     }
 
     public function imageUploadPost(Request $request)
     {
         request()->validate([
 
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
         ]);
 
-        $imageName = time().'.'.request()->image->getClientOriginalExtension();
+        $imageName = time() . '.' . request()
+            ->image
+            ->getClientOriginalExtension();
 
-        request()->image->move(public_path('images'), $imageName) ;
+        request()
+            ->image
+            ->move(public_path('images') , $imageName);
 
         $hero = new Hero;
 
@@ -118,37 +122,33 @@ class HomePageController extends Controller
         $hero->save();
 
         return back()
-            ->with('success','You have successfully upload image.')
-            ->with('image',$imageName);
+            ->with('success', 'You have successfully upload image.')
+            ->with('image', $imageName);
     }
-
 
     public function imageUploadUpdate(Request $request)
     {
         request()->validate([
 
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
 
         ]);
 
-        $imageName = time().'.'.request()->image->getClientOriginalExtension();
+        $imageName = time() . '.' . request()
+            ->image
+            ->getClientOriginalExtension();
 
-        request()->image->move(public_path('images'), $imageName) ;
+        request()
+            ->image
+            ->move(public_path('images') , $imageName);
 
-
-      
         $menu = Hero::findorFail(
 
-        $request->input('id') )->update(
-            [
-                'name'          =>$request->input('name'),
-                'profession'    => $request->input('profession'),
-                'image'         => '/images/' . $imageName
-            ]);
+        $request->input('id'))
+            ->update(['name' => $request->input('name') , 'profession' => $request->input('profession') , 'image' => '/images/' . $imageName]);
 
-
-        return back()
-            ->with('success','You have successfully upload image.')
-            ->with('image',$imageName);
+        return back()->with('success', 'You have successfully upload image.')
+            ->with('image', $imageName);
     }
 }
+

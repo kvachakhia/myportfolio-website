@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -14,11 +13,10 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        $services = DB::table('services')->orderByDesc('created_at','desc')->get();
-        
-        return view('admin.dashboard.page.service.index',[
-            'services' => $services
-        ]);
+        $services = DB::table('services')->orderByDesc('created_at', 'desc')
+            ->get();
+
+        return view('admin.dashboard.page.service.index', ['services' => $services]);
     }
 
     /**
@@ -29,6 +27,7 @@ class ServiceController extends Controller
     public function create()
     {
         //
+        
     }
 
     /**
@@ -39,25 +38,32 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate([
-            'icon' => 'max:2048',
-        ]);
+        request()->validate(['icon' => 'max:2048', ]);
 
-        if (request()->hasFile('icon')) {
-            $filename = time().'.'.request()->icon->getClientOriginalExtension();
-            request()->icon->move(public_path('images'), $filename) ;
+        if (request()
+            ->hasFile('icon'))
+        {
+            $filename = time() . '.' . request()
+                ->icon
+                ->getClientOriginalExtension();
+            request()
+                ->icon
+                ->move(public_path('images') , $filename);
         }
 
         $service = new Service;
         $service->title = $request->input('title');
         $service->description = $request->input('description');
 
-        if (request()->hasFile('icon')) {
+        if (request()
+            ->hasFile('icon'))
+        {
             $service->icon = '/images/' . $filename;
         }
         $service->save();
 
-        return redirect('/dashboard/page/services/')->with('message', 'Service Added');
+        return redirect('/dashboard/page/services/')
+            ->with('message', 'Service Added');
     }
 
     /**
@@ -68,13 +74,11 @@ class ServiceController extends Controller
      */
     public function show()
     {
-        $services = DB::table('services')->orderByDesc('created_at','desc')->get();
+        $services = DB::table('services')->orderByDesc('created_at', 'desc')
+            ->get();
         $menus = DB::table('menus')->get();
-        
-        return view('pages.services',[
-            'services' => $services,
-            'menus'    => $menus
-        ]);
+
+        return view('pages.services', ['services' => $services, 'menus' => $menus]);
     }
 
     /**
@@ -86,6 +90,7 @@ class ServiceController extends Controller
     public function edit($id)
     {
         //
+        
     }
 
     /**
@@ -97,36 +102,31 @@ class ServiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $this->validate($request,[
-            'id'         =>     'integer',
-            'icon'         =>   'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'title'        =>   'string',
-            'description'  =>   'string'
-        ]);
+        $this->validate($request, ['id' => 'integer', 'icon' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', 'title' => 'string', 'description' => 'string']);
 
-        if (request()->hasFile('icon')) {
-            $imageName = time().'.'.request()->icon->getClientOriginalExtension();
-            request()->icon->move(public_path('images'), $imageName) ;
+        if (request()->hasFile('icon'))
+        {
+            $imageName = time() . '.' . request()
+                ->icon
+                ->getClientOriginalExtension();
+            request()
+                ->icon
+                ->move(public_path('images') , $imageName);
         }
 
-        if (request()->hasFile('icon') ) {
-            $service = Service::findorFail( $request->input('id') )->update(
-                [ 
-                    'title'       => $request->input('title'),
-                    'description' => $request->input('description'),
-                    'icon'        => '/images/'.$imageName,
-                ]
-            );
-        }else {
-            $service = Service::findorFail($request->input('id'))->update(
-                [
-                    'title' => $request->input('title'),
-                    'description' => $request->input('description'),
-                ]
-            );
+        if (request()->hasFile('icon'))
+        {
+            $service = Service::findorFail($request->input('id'))
+                ->update(['title' => $request->input('title') , 'description' => $request->input('description') , 'icon' => '/images/' . $imageName, ]);
         }
-        
-        if( $service ) {
+        else
+        {
+            $service = Service::findorFail($request->input('id'))
+                ->update(['title' => $request->input('title') , 'description' => $request->input('description') , ]);
+        }
+
+        if ($service)
+        {
             return redirect('/dashboard/page/services/')->with('message', 'Service Updated');
         }
     }
@@ -139,20 +139,22 @@ class ServiceController extends Controller
      */
     public function destroy($id)
     {
-        $service = Service::findorFail( $id )->delete();
+        $service = Service::findorFail($id)->delete();
         return back();
     }
 
-    public function addnewservice() {
+    public function addnewservice()
+    {
         return view('admin.dashboard.page.service.addnew');
     }
 
-    public function editservice($id) {
+    public function editservice($id)
+    {
 
-        $service = Service::find( $id );
-        
-        return view('admin.dashboard.page.service.editservice',['service' => $service]);
+        $service = Service::find($id);
+
+        return view('admin.dashboard.page.service.editservice', ['service' => $service]);
     }
 
-
 }
+
